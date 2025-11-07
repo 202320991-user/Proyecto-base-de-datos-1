@@ -1,0 +1,14 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="container py-5 text-center">
+    <h1 class="display-5 fw-bold text-primary mb-4">Sistema de Gestión Northwind</h1>
+    <p class="lead mb-4">
+        Bienvenido al sistema de gestión y análisis de ventas basado en la base de datos Northwind.  
+        Aquí podrás consultar clientes, productos, pedidos y reportes de ventas.
+    </p>
+    <a class="btn btn-lg btn-primary shadow" asp-page="/Customers/Index">Ver Clientes</a>
+</div>

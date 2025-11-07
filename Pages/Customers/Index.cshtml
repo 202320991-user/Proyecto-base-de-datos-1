@@ -1,0 +1,29 @@
+@page
+@model NorthwindWeb.Pages.Customers.IndexModel
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<h2>Listado de Clientes (Northwind)</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Compañía</th>
+            <th>Contacto</th>
+            <th>País</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model.Clientes)
+        {
+            <tr>
+                <td>@c.CustomerID</td>
+                <td>@c.CompanyName</td>
+                <td>@c.ContactName</td>
+                <td>@c.Country</td>
+            </tr>
+        }
+    </tbody>
+</table>
