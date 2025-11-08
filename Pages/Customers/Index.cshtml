@@ -27,3 +27,19 @@
         }
     </tbody>
 </table>
+<div class="d-flex justify-content-between mt-3">
+    @if (Model.CurrentPage > 1)
+    {
+        <a class="btn btn-outline-primary" asp-page="./Index" asp-route-pageNumber="@(Model.CurrentPage - 1)">← Anterior</a>
+    }
+    else
+    {
+        <span></span>
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <a class="btn btn-outline-primary" asp-page="./Index" asp-route-pageNumber="@(Model.CurrentPage + 1)">Siguiente →</a>
+    }
+</div>
+
