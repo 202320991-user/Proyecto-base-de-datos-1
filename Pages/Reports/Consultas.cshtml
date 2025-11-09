@@ -1,0 +1,26 @@
+@page
+@model NorthwindWeb.Pages.Reports.Consulta1Model
+@{
+    ViewData["Title"] = "Consulta 1";
+}
+
+<h1>Clientes de México</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Empresa</th>
+        <th>Contacto</th>
+        <th>País</th>
+    </tr>
+
+    @foreach (var c in Model.Clientes)
+    {
+        <tr>
+            <td>@c.CustomerID</td>
+            <td>@c.CompanyName</td>
+            <td>@c.ContactName</td>
+            <td>@c.Country</td>
+        </tr>
+    }
+</table>

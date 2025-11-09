@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NorthwindWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1059e0e9703033cc59272da79fe9587eb6c67888")]
 [assembly: System.Reflection.AssemblyProductAttribute("NorthwindWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NorthwindWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

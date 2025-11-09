@@ -1,46 +1,30 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using NorthwindWeb.Models;
 
-namespace NorthwindWeb.Pages.Customers
+namespace NorthwindWeb.Pages.Reports
 {
-    public class IndexModel : PageModel
+    public class Consulta1Model : PageModel
     {
         private readonly IConfiguration _configuration;
         public List<Customer> Clientes { get; set; } = new();
 
-        public int PageNumber { get; set; } = 1;   // Página actual
-        public int PageSize { get; set; } = 10;    // Registros por página
-        public int TotalRecords { get; set; }      // Total de registros
-        public int TotalPages => (int)Math.Ceiling((double)TotalRecords / PageSize);
-
-        public IndexModel(IConfiguration configuration)
+        public Consulta1Model(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public void OnGet(int pageNumber = 1)
+        public void OnGet()
         {
-            PageNumber = pageNumber;
             string connStr = _configuration.GetConnectionString("NorthwindConn");
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
 
-                // Contar registros totales
-                SqlCommand countCmd = new SqlCommand("SELECT COUNT(*) FROM Customers", conn);
-                TotalRecords = (int)countCmd.ExecuteScalar();
-
-                // Obtener los registros para la página actual
-                string query = $@"
-                    SELECT CustomerID, CompanyName, ContactName, Country
-                    FROM Customers
-                    ORDER BY CustomerID
-                    OFFSET {(PageNumber - 1) * PageSize} ROWS
-                    FETCH NEXT {PageSize} ROWS ONLY";
+                // 🔹 Aquí pones TU consulta SQL personalizada
+                string query = "SELECT CustomerID, CompanyName, ContactName, Country FROM Customers WHERE Country = 'Mexico'";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -59,4 +43,3 @@ namespace NorthwindWeb.Pages.Customers
         }
     }
 }
-
