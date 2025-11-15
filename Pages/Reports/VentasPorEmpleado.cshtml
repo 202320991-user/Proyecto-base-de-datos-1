@@ -1,0 +1,36 @@
+@page
+@model NorthwindWeb.Pages.Reports.VentasPorEmpleadoModel
+@{
+    ViewData["Title"] = "Reporte de Ventas por Empleado y Año";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Resultados.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Año</th>
+                <th>Venta Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Resultados)
+            {
+                <tr>
+                    <td>@item.NombreCompleto</td>
+                    <td>@item.AnioVenta</td>
+                    <td>@item.VentaTotalAnual.ToString("C2")</td> @* Formato de moneda *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No se encontraron datos de ventas.
+    </div>
+}

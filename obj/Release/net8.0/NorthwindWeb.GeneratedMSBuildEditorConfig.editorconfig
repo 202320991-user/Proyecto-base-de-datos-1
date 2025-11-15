@@ -18,14 +18,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\USUARIO\Documents\GitHub\Proyecto BD\NorthwindWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Customers/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXENyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Customers/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Customers/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,32 +30,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Orders/CreateOrderSP.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXENyZWF0ZU9yZGVyU1AuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Orders/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXERlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/DetallesDePedido.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xEZXRhbGxlc0RlUGVkaWRvLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/HistorialCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xIaXN0b3JpYWxDbGllbnRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/PedidosPorCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xQZWRpZG9zUG9yQ2xpZW50ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/VentasPorEmpleado.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xWZW50YXNQb3JFbXBsZWFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Shared/_ValidationScriptsPartial.cshtml]

@@ -1,0 +1,68 @@
+@page
+@model NorthwindWeb.Pages.Reports.PedidosPorClienteModel
+@{
+    ViewData["Title"] = "Pedidos por Cliente";
+}
+
+<h1>Pedidos por Cliente</h1>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label for="CustomerID" class="form-label">ID del Cliente (e.g., VINET, ALFIK)</label>
+        <input type="text" class="form-control" id="CustomerID" 
+               name="CustomerID" placeholder="Ingrese CustomerID" 
+               value="@Model.CustomerID">
+    </div>
+    <div class="col-auto align-self-end">
+        <button type="submit" class="btn btn-primary">Buscar Pedidos</button>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+else if (!string.IsNullOrEmpty(Model.CustomerID))
+{
+    @if (!string.IsNullOrEmpty(Model.Cliente.CustomerID))
+    {
+        <h2>Pedidos para: @Model.Cliente.CompanyName (@Model.Cliente.CustomerID)</h2>
+    }
+    else
+    {
+        <div class="alert alert-warning">No se encontró el cliente con ID: @Model.CustomerID</div>
+    }
+
+    @if (Model.Pedidos.Any())
+    {
+        <table class="table table-bordered table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Fecha Orden</th>
+                    <th>Fecha Requerida</th>
+                    <th>Fecha Envío</th>
+                    <th>Envío ($)</th>
+                    <th>País Destino</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pedido in Model.Pedidos)
+                {
+                    <tr>
+                        <td>@pedido.OrderID</td>
+                        <td>@pedido.OrderDate.ToShortDateString()</td>
+                        <td>@pedido.RequiredDate.ToShortDateString()</td>
+                        <td>@(pedido.ShippedDate?.ToShortDateString() ?? "Pendiente")</td>
+                        <td>@pedido.Freight.ToString("C2")</td>
+                        <td>@pedido.ShipCountry</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (string.IsNullOrEmpty(Model.ErrorMessage) && !string.IsNullOrEmpty(Model.Cliente.CustomerID))
+    {
+        <div class="alert alert-info">El cliente @Model.Cliente.CompanyName no tiene pedidos registrados.</div>
+    }
+}

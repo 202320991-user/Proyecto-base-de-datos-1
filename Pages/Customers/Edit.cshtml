@@ -1,0 +1,70 @@
+@page "{CustomerID}"
+@model NorthwindWeb.Pages.Customers.EditModel
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<h1>Editar Cliente: @Model.Cliente.CompanyName</h1>
+<hr />
+
+@{
+    var successMsg = TempData["SuccessMessage"]?.ToString() ?? Model.SuccessMessage;
+    if (!string.IsNullOrEmpty(successMsg))
+    {
+        <div class="alert alert-success" role="alert">@successMsg</div>
+    }
+}
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form method="post">
+            <input type="hidden" asp-for="Cliente.CustomerID" />
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="mb-3">
+                <label asp-for="Cliente.CompanyName" class="form-label"></label>
+                <input asp-for="Cliente.CompanyName" class="form-control" readonly />
+            </div>
+
+            <h4 class="mt-4">Información de Contacto</h4>
+
+            <div class="mb-3">
+                <label asp-for="Cliente.ContactName" class="form-label"></label>
+                <input asp-for="Cliente.ContactName" class="form-control" />
+                <span asp-validation-for="Cliente.ContactName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Cliente.Phone" class="form-label">Teléfono</label>
+                <input asp-for="Cliente.Phone" class="form-control" />
+                <span asp-validation-for="Cliente.Phone" class="text-danger"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="Cliente.Fax" class="form-label"></label>
+                <input asp-for="Cliente.Fax" class="form-control" />
+                <span asp-validation-for="Cliente.Fax" class="text-danger"></span>
+            </div>
+            
+            <h4 class="mt-4">Dirección</h4>
+
+            <div class="mb-3">
+                <label asp-for="Cliente.Address" class="form-label">Dirección</label>
+                <input asp-for="Cliente.Address" class="form-control" />
+                <span asp-validation-for="Cliente.Address" class="text-danger"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-success mt-4">Guardar Cambios</button>
+            <a asp-page="Index" class="btn btn-secondary mt-4">Cancelar y Volver</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

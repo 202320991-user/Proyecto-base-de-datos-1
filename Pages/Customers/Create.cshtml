@@ -1,0 +1,61 @@
+@page
+@model NorthwindWeb.Pages.Customers.CreateModel
+@{
+    ViewData["Title"] = "Crear Nuevo Cliente";
+}
+
+<h1>Crear Nuevo Cliente</h1>
+<hr />
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @Model.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.ErrorMessage
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div class="mb-3">
+                <label asp-for="NuevoCliente.CustomerID" class="form-label"></label>
+                <input asp-for="NuevoCliente.CustomerID" class="form-control" />
+                <span asp-validation-for="NuevoCliente.CustomerID" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NuevoCliente.CompanyName" class="form-label"></label>
+                <input asp-for="NuevoCliente.CompanyName" class="form-control" />
+                <span asp-validation-for="NuevoCliente.CompanyName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NuevoCliente.ContactName" class="form-label"></label>
+                <input asp-for="NuevoCliente.ContactName" class="form-control" />
+                <span asp-validation-for="NuevoCliente.ContactName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NuevoCliente.Country" class="form-label"></label>
+                <input asp-for="NuevoCliente.Country" class="form-control" />
+                <span asp-validation-for="NuevoCliente.Country" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrar Cliente</button>
+            <a asp-page="Index" class="btn btn-secondary">Volver al Listado</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

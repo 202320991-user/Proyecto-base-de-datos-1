@@ -1,0 +1,39 @@
+@page "{OrderID}"
+@model NorthwindWeb.Pages.Orders.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Pedido";
+}
+
+<h1>Eliminar Pedido</h1>
+<hr />
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error de Eliminación:</strong> @Model.ErrorMessage
+    </div>
+}
+
+@if (Model.OrderID.HasValue)
+{
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">¡Advertencia!</h4>
+        <p>Estás a punto de eliminar el **Pedido @Model.OrderID.Value**.</p>
+        <p><strong>Cliente:</strong> @Model.CompanyName</p>
+        <p><strong>Fecha:</strong> @Model.OrderDate.ToShortDateString()</p>
+        <p class="mb-0">Esta acción eliminará tanto el pedido principal como todos sus detalles y es **irreversible**.</p>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="OrderID" />
+        
+        <button type="submit" class="btn btn-danger btn-lg">
+            <i class="bi bi-trash"></i> Confirmar Eliminación
+        </button>
+        <a asp-page="/Customers/Index" class="btn btn-secondary btn-lg">Cancelar</a>
+    </form>
+}
+else
+{
+    <a asp-page="/Customers/Index" class="btn btn-primary">Volver al Listado de Clientes</a>
+}
