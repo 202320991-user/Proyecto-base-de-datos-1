@@ -20,7 +20,7 @@ namespace NorthwindWeb.Pages.Reports
 
             if (string.IsNullOrEmpty(connStr))
             {
-                // Manejo de error de conexión (debes mejorar esto)
+                // Manejo de error: la cadena de conexión no está configurada
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace NorthwindWeb.Pages.Reports
                 {
                     conn.Open();
 
-                    // La consulta más compleja: Ventas totales por empleado y año
+                    // Consulta SQL compleja: Ventas totales por empleado y año (JOIN, GROUP BY, SUM)
                     string query = @"
                         SELECT 
                             E.FirstName + ' ' + E.LastName AS NombreCompleto,
@@ -49,8 +49,6 @@ namespace NorthwindWeb.Pages.Reports
 
                     using SqlCommand cmd = new SqlCommand(query, conn);
                     
-                    // Aquí NO usamos parámetros, pero la práctica es segura ya que no usamos input del usuario.
-                    
                     using SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -66,16 +64,16 @@ namespace NorthwindWeb.Pages.Reports
             }
             catch (SqlException)
             {
-                // Aquí deberías añadir tu manejo de errores robusto
+                // Manejo de errores específicos de SQL
             }
             catch (Exception)
             {
-                // Manejo de cualquier otro error
+                // Manejo de errores generales
             }
         }
     }
     
-    // Modelo de datos interno para este reporte específico
+    // Modelo de datos utilizado para almacenar los resultados del reporte
     public class VentasEmpleadoReporte
     {
         public string NombreCompleto { get; set; } = string.Empty;

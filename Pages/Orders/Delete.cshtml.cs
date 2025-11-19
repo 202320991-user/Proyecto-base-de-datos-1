@@ -99,7 +99,7 @@ namespace NorthwindWeb.Pages.Orders
                 return Page();
             }
 
-            // 🚨 Lógica de Eliminación Segura usando Transacción
+            // Lógica de Eliminación Segura usando Transacción
             try
             {
                 using (SqlConnection conn = new SqlConnection(connStr))

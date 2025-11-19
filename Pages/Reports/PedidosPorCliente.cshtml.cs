@@ -38,7 +38,7 @@ namespace NorthwindWeb.Pages.Reports
                 return;
             }
             
-            // Aseguramos que el CustomerID sea seguro
+            // Asegura que el CustomerID sea seguro
             string safeID = CustomerID.Trim().ToUpper();
 
             try
@@ -60,7 +60,7 @@ namespace NorthwindWeb.Pages.Reports
 
                     using (SqlCommand cmdPedidos = new SqlCommand(queryPedidos, conn))
                     {
-                        // 🔒 Usando parámetros para prevenir SQL Injection
+                        // Usa parámetros para prevenir SQL Injection
                         cmdPedidos.Parameters.AddWithValue("@CustomerID", safeID);
                         
                         using (SqlDataReader reader = cmdPedidos.ExecuteReader())
@@ -80,7 +80,7 @@ namespace NorthwindWeb.Pages.Reports
                         }
                     }
                     
-                    // Opcional: Obtener detalles del cliente (para mostrar en el título)
+                    // Obtiene detalles del cliente que muestra en el título
                     string queryCliente = "SELECT CompanyName, ContactName, Country FROM Customers WHERE CustomerID = @CustomerID";
                     using (SqlCommand cmdCliente = new SqlCommand(queryCliente, conn))
                     {

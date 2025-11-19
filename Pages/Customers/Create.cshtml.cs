@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
-using NorthwindWeb.Models; // Usamos el modelo Customer con validaciones
+using NorthwindWeb.Models; 
 
 namespace NorthwindWeb.Pages.Customers
 {
@@ -27,7 +27,7 @@ namespace NorthwindWeb.Pages.Customers
         // Maneja el envío del formulario (POST)
         public IActionResult OnPost()
         {
-            // 🚨 1. Validar el modelo (usa los atributos [Required], [StringLength], etc.)
+            // 1. Validar el modelo (usa los atributos [Required], [StringLength], etc.)
             if (!ModelState.IsValid)
             {
                 // Si hay errores de validación, vuelve a cargar la página con el formulario y los mensajes de error.
@@ -41,7 +41,7 @@ namespace NorthwindWeb.Pages.Customers
                 return Page();
             }
 
-            // 🚨 2. Lógica de Inserción Segura
+            // 2. Lógica de Inserción Segura
             try
             {
                 using (SqlConnection conn = new SqlConnection(connStr))
@@ -65,7 +65,7 @@ namespace NorthwindWeb.Pages.Customers
                     cmd.ExecuteNonQuery();
                 }
 
-                // 3. Éxito: Limpiar el formulario y mostrar mensaje de éxito
+                // 3. Limpiar el formulario y mostrar mensaje de éxito
                 SuccessMessage = $"El cliente '{NuevoCliente.CompanyName}' ha sido registrado exitosamente.";
                 NuevoCliente = new Customer(); // Limpiar el modelo para el siguiente registro
                 return Page();

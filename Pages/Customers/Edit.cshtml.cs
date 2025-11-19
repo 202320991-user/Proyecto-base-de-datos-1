@@ -94,7 +94,7 @@ namespace NorthwindWeb.Pages.Customers
         // Maneja la solicitud POST: Guardar los cambios
         public IActionResult OnPost()
         {
-            // 🚨 1. Validar el modelo
+            // 1. Validar el modelo
             if (!ModelState.IsValid)
             {
                 // Si la validación falla, volvemos a la página con los datos ingresados
@@ -108,7 +108,7 @@ namespace NorthwindWeb.Pages.Customers
                 return Page();
             }
 
-            // 🚨 2. Lógica de Actualización Segura
+            // 2. Lógica de Actualización Segura
             try
             {
                 using (SqlConnection conn = new SqlConnection(connStr))
@@ -132,7 +132,7 @@ namespace NorthwindWeb.Pages.Customers
 
                     using SqlCommand cmd = new SqlCommand(query, conn);
 
-                    // 🔒 Usando parámetros para la actualización segura
+                    // Usando parámetros para la actualización segura
                     cmd.Parameters.AddWithValue("@CustomerID", Cliente.CustomerID);
                     cmd.Parameters.AddWithValue("@CompanyName", Cliente.CompanyName);
                     cmd.Parameters.AddWithValue("@ContactName", Cliente.ContactName);

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindWeb.Pages.Orders
 {
-    // Modelo para enlazar el formulario de creación de pedidos
+    // Modelo de datos para enlazar la información del formulario de pedido
     public class PedidoSPInputModel
     {
         [Required(ErrorMessage = "El ID de Cliente es obligatorio.")]
@@ -17,16 +17,16 @@ namespace NorthwindWeb.Pages.Orders
         [Required(ErrorMessage = "El Vendedor es obligatorio.")]
         [Display(Name = "ID Vendedor")]
         [Range(1, 9, ErrorMessage = "Debe ser un ID de empleado válido (1-9).")]
-        public int EmployeeID { get; set; } = 1; // Default a 1
+        public int EmployeeID { get; set; } = 1;
 
         [Required(ErrorMessage = "La Fecha Requerida es obligatoria.")]
         [Display(Name = "Fecha Requerida")]
-        public DateTime RequiredDate { get; set; } = DateTime.Now.AddDays(7); // Una semana después
+        public DateTime RequiredDate { get; set; } = DateTime.Now.AddDays(7); // Fecha requerida por defecto (1 semana)
 
         [Required(ErrorMessage = "La Compañía de Envío es obligatoria.")]
         [Display(Name = "ID Envío")]
         [Range(1, 3, ErrorMessage = "Debe ser un ID de compañía de envío válido (1-3).")]
-        public int ShipVia { get; set; } = 1; // Default a 1 (Speedy Express)
+        public int ShipVia { get; set; } = 1; // Default: Speedy Express
 
         [Required(ErrorMessage = "El Producto es obligatorio.")]
         [Display(Name = "ID Producto")]
@@ -39,7 +39,7 @@ namespace NorthwindWeb.Pages.Orders
         [Range(0.0, 0.5, ErrorMessage = "El descuento debe estar entre 0 y 50%.")]
         public float Discount { get; set; } = 0f;
 
-        // Simplificamos los campos de envío al usar los mismos que el cliente si es posible
+        // Campos de envío simplificados, pueden ser pre-llenados por JS
         public string ShipName { get; set; } = "N/A";
         public decimal Freight { get; set; } = 0.0m;
         public string ShipAddress { get; set; } = "N/A";
@@ -54,7 +54,7 @@ namespace NorthwindWeb.Pages.Orders
         [BindProperty]
         public PedidoSPInputModel Input { get; set; } = new PedidoSPInputModel();
         
-        // Propiedades de ayuda para llenar los dropdowns (simplificado: solo Employee y Shipper)
+        // Datos para dropdowns (empleados y transportistas)
         public List<(int Id, string Name)> Employees { get; set; } = new List<(int, string)>();
         public List<(int Id, string Name)> Shippers { get; set; } = new List<(int, string)>();
         
@@ -71,10 +71,10 @@ namespace NorthwindWeb.Pages.Orders
             LoadLookupData();
         }
 
-        // Método para cargar datos de empleados y transportistas
+        // Carga de datos de apoyo para los campos de selección del formulario
         private void LoadLookupData()
         {
-            // Lógica para cargar Employees (IDs 1-9) y Shippers (IDs 1-3) para los dropdowns
+            // Carga simplificada de IDs y nombres (esto podría venir de la DB)
             for (int i = 1; i <= 9; i++) Employees.Add((i, $"Vendedor {i}"));
             Shippers.Add((1, "Speedy Express"));
             Shippers.Add((2, "United Package"));
@@ -83,9 +83,9 @@ namespace NorthwindWeb.Pages.Orders
 
         public IActionResult OnPost()
         {
-            LoadLookupData(); // Volver a cargar para la vista POST
+            LoadLookupData(); // Recargar datos para la vista en caso de error
             
-            // 🚨 1. Validar el modelo
+            // 1. Validar las entradas del formulario
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -94,43 +94,44 @@ namespace NorthwindWeb.Pages.Orders
             string? connStr = _configuration.GetConnectionString("NorthwindConn");
             if (string.IsNullOrEmpty(connStr))
             {
-                ErrorMessage = "Error de Configuración.";
+                ErrorMessage = "Error de Configuración: Cadena de conexión no definida.";
                 return Page();
             }
 
-            // 🚨 2. Ejecutar el Procedimiento Almacenado
+            // 2. Ejecutar el Procedimiento Almacenado de Transacción
             try
             {
                 using (SqlConnection conn = new SqlConnection(connStr))
                 {
                     conn.Open();
 
-                    // Uso del SP creado en la Fase 1
+                    // Comando SQL que llama al SP (requerido para inserción transaccional)
                     using SqlCommand cmd = new SqlCommand("SP_RegistrarNuevoPedidoCompleto", conn);
-                    cmd.CommandType = CommandType.StoredProcedure; // 🚨 Ejecutamos el SP
+                    cmd.CommandType = CommandType.StoredProcedure; 
 
-                    // 🔒 Parámetros del SP (Asegúrate de que los nombres coincidan con tu SP)
+                    // Asignación de parámetros de entrada para Orders y Order Details
                     cmd.Parameters.AddWithValue("@CustomerID", Input.CustomerID.ToUpper());
                     cmd.Parameters.AddWithValue("@EmployeeID", Input.EmployeeID);
                     cmd.Parameters.AddWithValue("@RequiredDate", Input.RequiredDate);
                     cmd.Parameters.AddWithValue("@ShipVia", Input.ShipVia);
                     cmd.Parameters.AddWithValue("@Freight", Input.Freight);
                     
-                    // Nota: Se requiere que el SP use los campos simplificados ShipName, Address, City, Country
-                    // Si tu SP es más complejo, debes adaptar estos parámetros aquí.
                     cmd.Parameters.AddWithValue("@ShipName", Input.ShipName);
                     cmd.Parameters.AddWithValue("@ShipAddress", Input.ShipAddress);
                     cmd.Parameters.AddWithValue("@ShipCity", Input.ShipCity);
-                    cmd.Parameters.AddWithValue("@ShipRegion", DBNull.Value); // Asumimos NULL por simplicidad
-                    cmd.Parameters.AddWithValue("@ShipPostalCode", DBNull.Value); // Asumimos NULL por simplicidad
+                    
+                    // Campos de envío opcionales, se envían como DBNull
+                    cmd.Parameters.AddWithValue("@ShipRegion", DBNull.Value); 
+                    cmd.Parameters.AddWithValue("@ShipPostalCode", DBNull.Value); 
+                    
                     cmd.Parameters.AddWithValue("@ShipCountry", Input.ShipCountry);
 
-                    // Parámetros de Order Details
+                    // Parámetros del detalle del pedido (Order Details)
                     cmd.Parameters.AddWithValue("@ProductID", Input.ProductID);
                     cmd.Parameters.AddWithValue("@Quantity", Input.Quantity);
                     cmd.Parameters.AddWithValue("@Discount", Input.Discount);
 
-                    // Ejecución y captura del OrderID retornado por el SP
+                    // Ejecución y obtención del OrderID generado por el SP
                     var reader = cmd.ExecuteReader();
                     int newOrderID = -1;
                     if (reader.Read())
@@ -142,18 +143,18 @@ namespace NorthwindWeb.Pages.Orders
                     if (newOrderID > 0)
                     {
                         SuccessMessage = $"Pedido {newOrderID} registrado exitosamente usando el Procedimiento Almacenado.";
-                        Input = new PedidoSPInputModel(); // Limpiar formulario
+                        Input = new PedidoSPInputModel(); // Limpiar el formulario para un nuevo pedido
                     }
                     else
                     {
-                         ErrorMessage = "El pedido no pudo ser registrado. Verifique que los IDs de Cliente y Producto existan.";
+                        ErrorMessage = "El pedido no pudo ser registrado. Verifique los datos de entrada.";
                     }
                 }
             }
             catch (Exception ex)
             {
+                // Captura errores de conexión o errores lanzados por el SP (ej. violación de FK)
                 ErrorMessage = $"Error al registrar el pedido: {ex.Message}";
-                // Si la lógica del SP falla (ej. clave foránea), el error se lanza aquí.
             }
             return Page();
         }

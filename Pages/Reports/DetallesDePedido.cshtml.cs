@@ -64,12 +64,12 @@ namespace NorthwindWeb.Pages.Reports
 
                     while (reader.Read())
                     {
-                        // 🚨 CORRECCIÓN: Usamos Convert.ToDecimal para manejar tipos float/Single de la DB.
+                        // Usamos Convert.ToDecimal para manejar tipos float/Single de la DB.
                         decimal totalLinea = Convert.ToDecimal(reader["TotalLinea"]);
                         
                         Detalles.Add(new DetalleLineaReporte
                         {
-                            // 🚨 CORRECCIÓN: Usamos GetInt32 para leer ProductID de forma segura.
+                            // Usamos GetInt32 para leer ProductID de forma segura.
                             ProductID = reader.GetInt32(reader.GetOrdinal("ProductID")), 
                             ProductName = reader["ProductName"].ToString() ?? "N/A",
                             // Usamos Convert.ToDecimal() también aquí si UnitPrice fuera float/money
