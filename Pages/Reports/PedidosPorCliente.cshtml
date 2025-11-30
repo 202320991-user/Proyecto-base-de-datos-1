@@ -8,7 +8,7 @@
 
 <form method="get" class="row g-3 mb-4">
     <div class="col-auto">
-        <label for="CustomerID" class="form-label">ID del Cliente (e.g., VINET, ALFIK)</label>
+        <label for="CustomerID" class="form-label">ID del Cliente (e.g., VINET, ALFKI)</label>
         <input type="text" class="form-control" id="CustomerID" 
                name="CustomerID" placeholder="Ingrese CustomerID" 
                value="@Model.CustomerID">
@@ -44,6 +44,7 @@ else if (!string.IsNullOrEmpty(Model.CustomerID))
                     <th>Fecha Envío</th>
                     <th>Envío ($)</th>
                     <th>País Destino</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +57,9 @@ else if (!string.IsNullOrEmpty(Model.CustomerID))
                         <td>@(pedido.ShippedDate?.ToShortDateString() ?? "Pendiente")</td>
                         <td>@pedido.Freight.ToString("C2")</td>
                         <td>@pedido.ShipCountry</td>
+
+                       <td class="d-flex gap-2">
+                       
                     </tr>
                 }
             </tbody>

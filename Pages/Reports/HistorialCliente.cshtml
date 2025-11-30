@@ -1,7 +1,7 @@
 @page
 @model NorthwindWeb.Pages.Reports.HistorialClienteModel
 @{
-    ViewData["Title"] = "Historial de Pedidos por Cliente (SP)";
+    ViewData["Title"] = "Historial de Pedidos por Cliente ";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -48,10 +48,21 @@
                     <td>@pedido.FechaPedido</td>
                     <td>@pedido.Total.ToString("C2")</td>
                     <td>
-                        @if (pedido.OrderID > 0)
-                        {
-                            <a asp-page="DetallesDePedido" asp-route-OrderID="@pedido.OrderID" class="btn btn-sm btn-info text-white">Ver Detalles (Vista)</a>
-                        }
+                        
+    @if (pedido.OrderID > 0)
+    {
+        <a asp-page="DetallesDePedido"
+           asp-route-OrderID="@pedido.OrderID"
+           class="btn btn-sm btn-info text-white me-2">
+            Ver Detalles
+        </a>
+
+        <a asp-page="/Orders/Delete"
+           asp-route-OrderID="@pedido.OrderID"
+           class="btn btn-sm btn-danger">
+            Eliminar Pedido
+        </a>
+    }
                     </td>
                 </tr>
             }

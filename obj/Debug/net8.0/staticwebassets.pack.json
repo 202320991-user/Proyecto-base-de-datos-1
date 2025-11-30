@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\fondo1.jpeg",
+      "PackagePath": "staticwebassets\\images\\fondo1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\fondo2.jpg",
+      "PackagePath": "staticwebassets\\images\\fondo2.jpg"
+    },
+    {
       "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

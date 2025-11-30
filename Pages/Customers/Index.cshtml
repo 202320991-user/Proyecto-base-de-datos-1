@@ -4,7 +4,7 @@
     ViewData["Title"] = "Clientes";
 }
 
-<h2>Listado de Clientes (Northwind)</h2>
+<h2>Listado de Clientes </h2>
 
 <form method="get" class="mb-3">
     <div class="input-group">
@@ -37,12 +37,19 @@
                     <td>@c.Country</td>
                     
                     <td>
-                        <a asp-page="/Reports/HistorialCliente" 
-                           asp-route-CustomerID="@c.CustomerID" 
-                           class="btn btn-sm btn-info text-white">
-                            Ver Historial
-                        </a>
-                    </td>
+    <a asp-page="/Reports/HistorialCliente" 
+       asp-route-CustomerID="@c.CustomerID" 
+       class="btn btn-sm btn-info text-white me-1">
+        Ver Historial
+    </a>
+
+    <a asp-page="/Customers/Edit"
+       asp-route-CustomerID="@c.CustomerID"
+       class="btn btn-sm btn-warning text-dark">
+        Editar
+    </a>
+</td>
+
                 </tr>
             }
         </tbody>
