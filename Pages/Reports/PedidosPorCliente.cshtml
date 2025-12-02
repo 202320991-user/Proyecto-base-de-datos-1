@@ -44,7 +44,6 @@ else if (!string.IsNullOrEmpty(Model.CustomerID))
                     <th>Fecha Envío</th>
                     <th>Envío ($)</th>
                     <th>País Destino</th>
-                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,9 +56,6 @@ else if (!string.IsNullOrEmpty(Model.CustomerID))
                         <td>@(pedido.ShippedDate?.ToShortDateString() ?? "Pendiente")</td>
                         <td>@pedido.Freight.ToString("C2")</td>
                         <td>@pedido.ShipCountry</td>
-
-                       <td class="d-flex gap-2">
-                       
                     </tr>
                 }
             </tbody>
@@ -67,6 +63,8 @@ else if (!string.IsNullOrEmpty(Model.CustomerID))
     }
     else if (string.IsNullOrEmpty(Model.ErrorMessage) && !string.IsNullOrEmpty(Model.Cliente.CustomerID))
     {
-        <div class="alert alert-info">El cliente @Model.Cliente.CompanyName no tiene pedidos registrados.</div>
+        <div class="alert alert-info">
+            El cliente @Model.Cliente.CompanyName no tiene pedidos registrados.
+        </div>
     }
 }
