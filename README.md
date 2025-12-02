@@ -1,4 +1,4 @@
-# Resumen del avance
+# PROYECTO BD
 
 Aplicación web ASP.NET Core para gestionar y reportar datos sobre la base Northwind. Entregable: funcionalidad CRUD básica, reportes y procedimientos que automatizan la creación y consulta de pedidos.
 
@@ -42,6 +42,56 @@ GROUP BY
 ORDER BY
     Empleado,
     Año;
+
+Ventas totales por cliente por mes (año+mes)
+SELECT
+    c.CustomerID,
+    c.CompanyName,
+    YEAR(o.OrderDate) AS Anio,
+    MONTH(o.OrderDate) AS Mes,
+    SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)) AS TotalCompradoMes
+FROM Customers c
+JOIN Orders o ON c.CustomerID = o.CustomerID
+JOIN [Order Details] od ON o.OrderID = od.OrderID
+GROUP BY c.CustomerID, c.CompanyName, YEAR(o.OrderDate), MONTH(o.OrderDate)
+ORDER BY Anio DESC, Mes DESC, TotalCompradoMes DESC;
+
+
+Promedio de valor de pedido por cliente por año (usa AVG):
+WITH PedidoTotales AS (
+    SELECT
+        o.OrderID,
+        o.CustomerID,
+        YEAR(o.OrderDate) AS Anio,
+        SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)) AS TotalPorPedido
+    FROM Orders o
+    JOIN [Order Details] od ON o.OrderID = od.OrderID
+    GROUP BY o.OrderID, o.CustomerID, YEAR(o.OrderDate)
+)
+SELECT
+    c.CustomerID,
+    c.CompanyName,
+    p.Anio,
+    AVG(p.TotalPorPedido) AS PromedioPorPedido,
+    SUM(p.TotalPorPedido) AS TotalAnual
+FROM PedidoTotales p
+JOIN Customers c ON p.CustomerID = c.CustomerID
+GROUP BY c.CustomerID, c.CompanyName, p.Anio
+ORDER BY p.Anio DESC, TotalAnual DESC;
+
+
+Ventas totales por cliente por año:
+SELECT 
+    c.CustomerID,
+    c.CompanyName,
+    YEAR(o.OrderDate) AS Anio,
+    SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)) AS TotalComprado
+FROM Customers c
+JOIN Orders o        ON c.CustomerID = o.CustomerID
+JOIN [Order Details] od ON o.OrderID = od.OrderID
+GROUP BY c.CustomerID, c.CompanyName, YEAR(o.OrderDate)
+ORDER BY Anio DESC, TotalComprado DESC;
+
 ###############################################################################
 ##VISTAS ()
     Vista_PedidosDetalles_TotalLinea
@@ -69,25 +119,17 @@ GO
 
     Vista_VentasTotales_PorCliente
 
-IF OBJECT_ID('Vista_VentasTotales_PorCliente', 'V') IS NOT NULL
-    DROP VIEW Vista_VentasTotales_PorCliente;
-GO
-
-CREATE VIEW Vista_VentasTotales_PorCliente
+CREATE OR ALTER VIEW dbo.Vista_VentasTotales_PorCliente
 AS
-SELECT
+SELECT 
     C.CustomerID,
     C.CompanyName,
     C.Country,
-    CAST(SUM(OD.UnitPrice * OD.Quantity * (1 - OD.Discount)) AS DECIMAL(10, 2)) AS VentaTotal
-FROM 
-    Customers AS C
-JOIN 
-    Orders AS O ON C.CustomerID = O.CustomerID
-JOIN 
-    [Order Details] AS OD ON O.OrderID = OD.OrderID
-GROUP BY 
-    C.CustomerID, C.CompanyName, C.Country;
+    CAST(SUM(OD.UnitPrice * OD.Quantity * (1 - OD.Discount)) AS DECIMAL(18,2)) AS TotalVenta
+FROM Customers C
+JOIN Orders O ON C.CustomerID = O.CustomerID
+JOIN [Order Details] OD ON O.OrderID = OD.OrderID
+GROUP BY C.CustomerID, C.CompanyName, C.Country;
 GO
 ###############################################################################
 ## PROCESOS ALMACENADOS (SP)

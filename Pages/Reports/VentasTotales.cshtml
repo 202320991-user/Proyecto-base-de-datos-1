@@ -1,0 +1,67 @@
+@page
+@model NorthwindWeb.Pages.Reports.VentasTotalesModel
+@{
+    ViewData["Title"] = "Ventas Totales por Cliente o Región";
+}
+
+<h1>Ventas Totales</h1>
+
+<form method="post" class="row g-3 mb-4">
+
+    <div class="col-auto">
+        <label for="CustomerID" class="form-label">ID del Cliente (ej. ALFKI)</label>
+        <input type="text" class="form-control" id="CustomerID"
+               name="CustomerID" placeholder="Ingrese CustomerID"
+               value="@Model.CustomerID">
+    </div>
+
+    <div class="col-auto">
+        <label for="Region" class="form-label">Región / País (ej. Germany)</label>
+        <input type="text" class="form-control" id="Region"
+               name="Region" placeholder="Ingrese región"
+               value="@Model.Region">
+    </div>
+
+    <div class="col-auto align-self-end">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+
+</form>
+
+@if (Model.ErrorMessage != null && Model.ErrorMessage != "")
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (Model.Ventas.Count > 0)
+{
+    <h2>Resultados</h2>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Cliente</th>
+                <th>Región</th>
+                <th>Total Vendido</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var v in Model.Ventas)
+            {
+                <tr>
+                    <td>@v.CustomerID</td>
+                    <td>@v.CompanyName</td>
+                    <td>@v.Region</td>
+                    <td>@v.VentaTotal.ToString("C2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.Posted)
+{
+    <div class="alert alert-info">No se encontraron resultados para los filtros ingresados.</div>
+}
+
