@@ -22,9 +22,7 @@ namespace NorthwindWeb.Pages.Orders
             _configuration = configuration;
         }
 
-        // ----------------------------
-        //   🔥 Método GET corregido
-        // ----------------------------
+
         public IActionResult OnGet(int? OrderID, string? success)
         {
             this.OrderID = OrderID;
@@ -84,7 +82,7 @@ namespace NorthwindWeb.Pages.Orders
             return Page();
         }
 
-        // Método POST
+        
         public IActionResult OnPost()
         {
             if (OrderID == null)
@@ -110,7 +108,7 @@ namespace NorthwindWeb.Pages.Orders
 
                 try
                 {
-                    // Eliminar detalles
+                    
                     string deleteDetailsQuery = "DELETE FROM [Order Details] WHERE OrderID = @OrderID;";
                     using (SqlCommand cmdDetails = new SqlCommand(deleteDetailsQuery, conn, transaction))
                     {
@@ -118,7 +116,7 @@ namespace NorthwindWeb.Pages.Orders
                         cmdDetails.ExecuteNonQuery();
                     }
 
-                    // Eliminar pedido principal
+                   
                     string deleteOrderQuery = "DELETE FROM Orders WHERE OrderID = @OrderID;";
                     using (SqlCommand cmdOrder = new SqlCommand(deleteOrderQuery, conn, transaction))
                     {

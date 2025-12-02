@@ -4,7 +4,7 @@ namespace NorthwindWeb.Models
 {
     public class Customer
     {
-        // Campos Clave y Básicos
+        
         [Required(ErrorMessage = "El ID de Cliente es obligatorio.")]
         [StringLength(5, MinimumLength = 5, ErrorMessage = "El ID debe tener exactamente 5 caracteres.")]
         [Display(Name = "ID Cliente")]
@@ -20,7 +20,7 @@ namespace NorthwindWeb.Models
         [Display(Name = "Nombre Contacto")]
         public string ContactName { get; set; } = string.Empty;
         
-        // 🚨 PROPIEDADES AÑADIDAS PARA CUMPLIR EL REQUISITO DE EDICIÓN (DIRECCIÓN y TELÉFONO)
+        
         [StringLength(60)]
         [Display(Name = "Dirección")]
         public string Address { get; set; } = string.Empty;
@@ -31,11 +31,11 @@ namespace NorthwindWeb.Models
         
         [StringLength(15)]
         [Display(Name = "Región")]
-        public string Region { get; set; } = string.Empty; // Campo opcional
+        public string Region { get; set; } = string.Empty; 
         
         [StringLength(10)]
         [Display(Name = "Cód. Postal")]
-        public string PostalCode { get; set; } = string.Empty; // Campo opcional
+        public string PostalCode { get; set; } = string.Empty; 
 
         [StringLength(15)]
         [Display(Name = "País")]
@@ -47,6 +47,6 @@ namespace NorthwindWeb.Models
         
         [StringLength(24)]
         [Display(Name = "Fax")]
-        public string Fax { get; set; } = string.Empty; // Campo opcional
+        public string Fax { get; set; } = string.Empty; 
     }
 }

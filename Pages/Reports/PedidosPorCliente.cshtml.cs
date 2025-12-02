@@ -9,11 +9,10 @@ namespace NorthwindWeb.Pages.Reports
     public class PedidosPorClienteModel : PageModel
     {
         private readonly IConfiguration _configuration;
-        // Propiedad para mostrar la información básica del cliente
-        public Customer Cliente { get; set; } = new Customer();
-        // Lista para los pedidos asociados a ese cliente
+                public Customer Cliente { get; set; } = new Customer();
+        
         public List<OrderReporte> Pedidos { get; set; } = new List<OrderReporte>();
-        // Input para la búsqueda
+        
         [BindProperty(SupportsGet = true)]
         public string? CustomerID { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
@@ -27,7 +26,7 @@ namespace NorthwindWeb.Pages.Reports
         {
             if (string.IsNullOrEmpty(CustomerID))
             {
-                // No ejecutar la consulta si no hay ID
+                
                 return;
             }
 
@@ -38,7 +37,7 @@ namespace NorthwindWeb.Pages.Reports
                 return;
             }
             
-            // Asegura que el CustomerID sea seguro
+            
             string safeID = CustomerID.Trim().ToUpper();
 
             try
@@ -47,7 +46,7 @@ namespace NorthwindWeb.Pages.Reports
                 {
                     conn.Open();
 
-                    // Consulta para obtener los pedidos del cliente
+                    
                     string queryPedidos = @"
                         SELECT 
                             OrderID, OrderDate, RequiredDate, ShippedDate, Freight, ShipCountry
@@ -60,7 +59,7 @@ namespace NorthwindWeb.Pages.Reports
 
                     using (SqlCommand cmdPedidos = new SqlCommand(queryPedidos, conn))
                     {
-                        // Usa parámetros para prevenir SQL Injection
+                        
                         cmdPedidos.Parameters.AddWithValue("@CustomerID", safeID);
                         
                         using (SqlDataReader reader = cmdPedidos.ExecuteReader())
@@ -80,7 +79,7 @@ namespace NorthwindWeb.Pages.Reports
                         }
                     }
                     
-                    // Obtiene detalles del cliente que muestra en el título
+                    
                     string queryCliente = "SELECT CompanyName, ContactName, Country FROM Customers WHERE CustomerID = @CustomerID";
                     using (SqlCommand cmdCliente = new SqlCommand(queryCliente, conn))
                     {
@@ -105,7 +104,7 @@ namespace NorthwindWeb.Pages.Reports
         }
     }
 
-    // Modelo de datos interno para este reporte de pedidos
+    
     public class OrderReporte
     {
         public int OrderID { get; set; }

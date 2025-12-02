@@ -6,7 +6,7 @@ namespace NorthwindWeb.Pages.Reports
     public class VentasPorEmpleadoModel : PageModel
     {
         private readonly IConfiguration _configuration;
-        // La lista almacenará los resultados de la consulta
+        
         public List<VentasEmpleadoReporte> Resultados { get; set; } = new();
 
         public VentasPorEmpleadoModel(IConfiguration configuration)
@@ -20,7 +20,7 @@ namespace NorthwindWeb.Pages.Reports
 
             if (string.IsNullOrEmpty(connStr))
             {
-                // Manejo de error: la cadena de conexión no está configurada
+                
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace NorthwindWeb.Pages.Reports
                 {
                     conn.Open();
 
-                    // Consulta SQL compleja: Ventas totales por empleado y año (JOIN, GROUP BY, SUM)
+                    
                     string query = @"
                         SELECT 
                             E.FirstName + ' ' + E.LastName AS NombreCompleto,
@@ -64,16 +64,16 @@ namespace NorthwindWeb.Pages.Reports
             }
             catch (SqlException)
             {
-                // Manejo de errores específicos de SQL
+                
             }
             catch (Exception)
             {
-                // Manejo de errores generales
+                
             }
         }
     }
     
-    // Modelo de datos utilizado para almacenar los resultados del reporte
+    
     public class VentasEmpleadoReporte
     {
         public string NombreCompleto { get; set; } = string.Empty;
