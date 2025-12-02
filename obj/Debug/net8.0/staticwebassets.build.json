@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8f3kZ4g3nLyzRIQkI1sEAi1BUu7lDKOxijSMyJSDRpI=",
+  "Hash": "cCksLy5hD8gRXBXHCrhrgb2R8eTJe+v5ED6CjlZ5G2o=",
   "Source": "NorthwindWeb",
   "BasePath": "_content/NorthwindWeb",
   "Mode": "Default",
@@ -93,12 +93,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\fondo1.jpeg",
+      "Identity": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\background.svg",
       "SourceId": "NorthwindWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\",
       "BasePath": "_content/NorthwindWeb",
-      "RelativePath": "images/fondo1.jpeg",
+      "RelativePath": "images/background.svg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,15 +109,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\fondo1.jpeg"
+      "OriginalItemSpec": "wwwroot\\images\\background.svg"
     },
     {
-      "Identity": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\fondo2.jpg",
+      "Identity": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\wp2168805.jpg",
       "SourceId": "NorthwindWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\",
       "BasePath": "_content/NorthwindWeb",
-      "RelativePath": "images/fondo2.jpg",
+      "RelativePath": "images/wp2168805.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\fondo2.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\wp2168805.jpg"
     },
     {
       "Identity": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\js\\site.js",

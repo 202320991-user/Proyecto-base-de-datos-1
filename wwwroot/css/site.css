@@ -35,11 +35,127 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255,255,255,0.4); /* cambia opacidad si quieres */
-    z-index: -1;
+    background: rgba(0,0,0,0.25); /* overlay oscuro para mejorar contraste */
+    z-index: 1;
+}
+
+/* Fondo de pantalla: imagen por defecto en wwwroot/images/background.svg
+   - Reemplaza por tu propia imagen en wwwroot/images/background.jpg/png si lo prefieres */
+body {
+    background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('/images/wp2168805.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+/* Hacer transparente la barra de navegación y los contenedores principales
+   para que la imagen de fondo sea visible. Conservamos un poco de opacidad
+   para mantener legibilidad. */
+.navbar.bg-white {
+    background-color: rgba(255,255,255,0.75) !important;
+    backdrop-filter: blur(2px);
+}
+
+/* Contenedor principal y footer transparentes para permitir ver el fondo */
+#content, #content .container-fluid, main, footer {
+    background: transparent !important;
+}
+
+/* Mantener el sidebar con su color oscuro (no tocar #sidebar) */
+
+/* Si hay tarjetas con fondo blanco muy opaco, darles ligera transparencia */
+.card, .card-body {
+    background-color: rgba(255,255,255,0.9) !important;
+}
+
+/* Forzar color de texto en blanco para el contenido principal y navegación */
+body {
+    color: #ffffff;
+}
+
+/* Sobrescribir utilidades de Bootstrap que usan .text-dark */
+.text-dark {
+    color: #ffffff !important;
+}
+
+/* Enlaces y elementos de navegación deben ser blancos para visibilidad */
+a, a:link, a:visited, .nav-link {
+    color: #ffffff !important;
+}
+
+/* Sidebar mantiene su estilo pero aseguramos que el texto sea claro */
+#sidebar, #sidebar a, #sidebar .sidebar-header h3 {
+    color: #ffffff;
+}
+
+/* Botones: texto blanco y mantener estilos existentes */
+.btn, .btn-primary {
+    color: #fff !important;
 }
 
 /* ----- MAIN ocupa toda la pantalla ----- */
 main {
     min-height: calc(100vh - 150px);
+}
+
+/* Sidebar fijo y desplazable */
+#sidebar {
+    position: fixed;       /* lo fija en la ventana */
+    top: 0;
+    left: 0;
+    width: 260px;          /* ancho del sidebar (ajusta si quieres) */
+    height: 100vh;         /* altura total de la ventana */
+    overflow-y: auto;      /* permite scroll vertical cuando sea necesario */
+    overflow-x: hidden;    /* evita scroll horizontal */
+    padding: 20px 15px;    /* espacio interno */
+    z-index: 1000;         /* encima del contenido */
+    background-color: #1f2933; /* si quieres conservar color oscuro (ajusta) */
+}
+
+/* Ajustar el contenido principal para que no quede debajo del sidebar */
+#content {
+    margin-left: 260px;    /* debe coincidir con el width del sidebar */
+    transition: margin-left .2s;
+}
+
+/* Estilos para los enlaces del sidebar (opcional, mejora visibilidad) */
+#sidebar .components a {
+    color: #e6edf3;
+    display: block;
+    padding: 6px 0;
+    text-decoration: underline;
+}
+#sidebar .components a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Responsive: en pantallas pequeñas dejar el sidebar arriba (o ajustar) */
+@media (max-width: 768px) {
+    #sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    #content {
+        margin-left: 0;
+    }
+}
+/* ----- FIX FOOTER: 100% VISIBLE Y BLANCO ----- */
+footer {
+    position: relative;
+    z-index: 3 !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 6px rgba(0,0,0,0.6);
+}
+
+footer *, 
+.text-muted {
+    color: #ffffff !important;
 }

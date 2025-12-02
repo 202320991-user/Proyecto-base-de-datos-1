@@ -21,3 +21,158 @@ Desde la raíz del proyecto (`NorthwindWeb.csproj`):
 dotnet restore
 dotnet build
 dotnet run  # Opcional: dotnet watch run
+
+
+##CONSULTAS()
+
+Ventas por Empleado y Año
+
+SELECT
+    CONCAT(E.FirstName, ' ', E.LastName) AS Empleado,
+    YEAR(O.OrderDate) AS Año,
+    SUM(OD.UnitPrice * OD.Quantity * (1 - OD.Discount)) AS VentaTotal
+FROM Employees E
+INNER JOIN Orders O
+    ON E.EmployeeID = O.EmployeeID
+INNER JOIN [Order Details] OD
+    ON O.OrderID = OD.OrderID
+GROUP BY
+    CONCAT(E.FirstName, ' ', E.LastName),
+    YEAR(O.OrderDate)
+ORDER BY
+    Empleado,
+    Año;
+###############################################################################
+##VISTAS ()
+    Vista_PedidosDetalles_TotalLinea
+
+IF OBJECT_ID('Vista_PedidosDetalles_TotalLinea', 'V') IS NOT NULL
+    DROP VIEW Vista_PedidosDetalles_TotalLinea;
+GO
+
+CREATE VIEW Vista_PedidosDetalles_TotalLinea
+AS
+SELECT
+    OD.OrderID,
+    OD.ProductID,
+    P.ProductName,
+    OD.UnitPrice,
+    OD.Quantity,
+    OD.Discount,
+    (OD.UnitPrice * OD.Quantity * (1 - OD.Discount)) AS TotalLinea
+FROM 
+    [Order Details] AS OD
+INNER JOIN 
+    Products AS P ON OD.ProductID = P.ProductID;
+GO
+###############################################################################
+
+    Vista_VentasTotales_PorCliente
+
+IF OBJECT_ID('Vista_VentasTotales_PorCliente', 'V') IS NOT NULL
+    DROP VIEW Vista_VentasTotales_PorCliente;
+GO
+
+CREATE VIEW Vista_VentasTotales_PorCliente
+AS
+SELECT
+    C.CustomerID,
+    C.CompanyName,
+    C.Country,
+    CAST(SUM(OD.UnitPrice * OD.Quantity * (1 - OD.Discount)) AS DECIMAL(10, 2)) AS VentaTotal
+FROM 
+    Customers AS C
+JOIN 
+    Orders AS O ON C.CustomerID = O.CustomerID
+JOIN 
+    [Order Details] AS OD ON O.OrderID = OD.OrderID
+GROUP BY 
+    C.CustomerID, C.CompanyName, C.Country;
+GO
+###############################################################################
+## PROCESOS ALMACENADOS (SP)
+    SP_RegistrarNuevoPedidoCompleto
+
+CREATE PROCEDURE SP_RegistrarNuevoPedidoCompleto  
+        @CustomerID NCHAR(5),  
+    @EmployeeID INT,  
+    @RequiredDate DATETIME,  
+    @ShipVia INT,  
+    @Freight MONEY,  
+    @ShipName NVARCHAR(40),  
+    @ShipAddress NVARCHAR(60),  
+    @ShipCity NVARCHAR(15),  
+    @ShipRegion NVARCHAR(15) = NULL,  
+    @ShipPostalCode NVARCHAR(10) = NULL,  
+    @ShipCountry NVARCHAR(15),  
+        @ProductID INT,  
+    @Quantity SMALLINT,  
+    @Discount REAL  
+AS  
+BEGIN  
+    SET NOCOUNT ON;  
+      
+    DECLARE @NewOrderID INT;  
+      
+      
+    BEGIN TRANSACTION  
+      
+    BEGIN TRY  
+          
+       
+        INSERT INTO Orders (CustomerID, EmployeeID, OrderDate, RequiredDate, ShipVia, Freight, ShipName, ShipAddress, ShipCity, ShipRegion, ShipPostalCode, ShipCountry)  
+        VALUES (@CustomerID, @EmployeeID, GETDATE(), @RequiredDate, @ShipVia, @Freight, @ShipName, @ShipAddress, @ShipCity, @ShipRegion, @ShipPostalCode, @ShipCountry);  
+          
+                SET @NewOrderID = SCOPE_IDENTITY();  
+          
+                      INSERT INTO [Order Details] (OrderID, ProductID, UnitPrice, Quantity, Discount)  
+        SELECT   
+            @NewOrderID,   
+            @ProductID,   
+            UnitPrice,             @Quantity,   
+            @Discount  
+        FROM Products WHERE ProductID = @ProductID;  
+          
+                  
+               SELECT @NewOrderID AS NewOrderID;  
+          
+    END TRY  
+    BEGIN CATCH   
+        IF @@TRANCOUNT > 0  
+            ROLLBACK TRANSACTION;  
+              
+               THROW;  
+        RETURN -1; -- Retorna un error  
+    END CATCH  
+END
+
+###############################################################################
+    SP_ObtenerHistorialPedidos
+
+IF OBJECT_ID('SP_ObtenerHistorialPedidos', 'P') IS NOT NULL
+    DROP PROCEDURE SP_ObtenerHistorialPedidos;
+GO
+
+CREATE PROCEDURE SP_ObtenerHistorialPedidos
+    @CustomerID NCHAR(5)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        O.OrderID, 
+        O.OrderDate,
+        ISNULL(SUM(OD.UnitPrice * OD.Quantity * (1 - OD.Discount)), 0) AS Total 
+    FROM 
+        Orders AS O
+    LEFT JOIN 
+        [Order Details] AS OD ON O.OrderID = OD.OrderID
+    WHERE 
+        O.CustomerID = @CustomerID
+    GROUP BY 
+        O.OrderID, O.OrderDate
+    ORDER BY 
+        O.OrderDate DESC;
+END
+GO
+

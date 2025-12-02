@@ -1,0 +1,42 @@
+@page
+@model NorthwindWeb.Pages.Reports.VentasPorClienteAnioModel
+@{
+    ViewData["Title"] = "Reporte: Ventas por Cliente (Año)";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+else if (Model.Resultados.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>CustomerID</th>
+                <th>Cliente</th>
+                <th>Año</th>
+                <th>Total Comprado (año)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Resultados)
+            {
+                <tr>
+                    <td>@item.CustomerID</td>
+                    <td>@item.CompanyName</td>
+                    <td>@item.Anio</td>
+                    <td>@item.TotalComprado.ToString("C2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No se encontraron datos de ventas por cliente/año.
+    </div>
+}

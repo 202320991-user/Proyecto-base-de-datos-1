@@ -13,12 +13,12 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\fondo1.jpeg",
-      "PackagePath": "staticwebassets\\images\\fondo1.jpeg"
+      "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\background.svg",
+      "PackagePath": "staticwebassets\\images\\background.svg"
     },
     {
-      "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\fondo2.jpg",
-      "PackagePath": "staticwebassets\\images\\fondo2.jpg"
+      "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\images\\wp2168805.jpg",
+      "PackagePath": "staticwebassets\\images\\wp2168805.jpg"
     },
     {
       "Id": "C:\\Users\\USUARIO\\Documents\\GitHub\\Proyecto BD\\NorthwindWeb\\wwwroot\\js\\site.js",

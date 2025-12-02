@@ -62,6 +62,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xQZWRpZG9zUG9yQ2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/PromedioPedidoClienteAnio.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xQcm9tZWRpb1BlZGlkb0NsaWVudGVBbmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/VentasPorClienteAnio.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xWZW50YXNQb3JDbGllbnRlQW5pby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/VentasPorClienteMes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xWZW50YXNQb3JDbGllbnRlTWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/USUARIO/Documents/GitHub/Proyecto BD/NorthwindWeb/Pages/Reports/VentasPorEmpleado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xWZW50YXNQb3JFbXBsZWFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
